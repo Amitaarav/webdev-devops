@@ -46,11 +46,17 @@ setTimeoutPromise(2000)
 .then(function(){
     console.log("2 seconds have passed");
 })
+.catch(function(){
+    console.log("Error while waiting for the timeout");
+})
+.finally(function(){
+    console.log("This will be executed regardless of the promise being resolved or rejected");
+})
 
 // create a promisified version of fs.writeFile
 
 // without promises
-fs.writeFile("b.txt", "This is the content of b.txt", function(err){
+fs.writeFile("c.txt", "This is the content of c.txt", function(err){
     if(err){
         console.log("Error while writing to the file: ", err);
     }
@@ -76,3 +82,50 @@ fsWriteFilePromise("b.txt", "This is the content of b.txt")
 .catch(function(err){
     console.log("Error while writing to the file: ", err);
 })
+
+// can not resolve or reject a promise more than once
+const p = new Promise(function(resolve, reject){
+    resolve("First resolve");
+    resolve("Second resolve");
+    reject("First reject");
+    reject("Second reject");
+})
+p.then(function(value){
+    console.log("Promise resolved with value: ", value);
+})
+.catch(function(err){
+    console.log("Promise rejected with error: ", err);
+})
+
+
+// 
+
+async function main(){
+    // fsReadFilePromise("a.txt", "utf-8")
+    // .then(function(data){
+    //     console.log(data);
+    //     fsReadFilePromise("b.txt", "utf-8")
+    //     .then(function(data){
+    //         console.log(data);
+    //         fsReadFilePromise("c.txt", "utf-8"
+    //             .then(function(data){
+    //                 console.log(data);
+    //             })
+    //         )
+    //     })
+    // })
+
+    // let fileAContent = fs.readFileSync("a.txt", "utf-8"); // 10 seconds to read the file : block the main thread for 10 seconds
+    // let fileBContent = fs.readFileSync("b.txt", "utf-8"); //
+    // let fileCContent = fs.readFileSync("c.txt", "utf-8");
+
+    let fileAContent = await fsReadFilePromise("a.txt", "utf-8");
+    let fileBContent = await fsReadFilePromise("b.txt", "utf-8");
+    let fileCContent = await fsReadFilePromise("c.txt", "utf-8");
+
+    console.log("File A content:",fileAContent);
+    console.log("File B content:",fileBContent);
+    console.log("File C content:",fileCContent);
+}
+
+main();
