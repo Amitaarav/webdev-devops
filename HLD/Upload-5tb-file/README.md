@@ -111,3 +111,4 @@ CREATE INDEX idx_uploads_status ON file_uploads(status);
 ### D. Exponential Backoff
 - Network jitter is guaranteed for a 5TB file. The client must implement a retry mechanism with jitter to avoid slamming S3 during outages.
 ```
+- 
