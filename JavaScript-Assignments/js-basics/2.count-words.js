@@ -65,9 +65,9 @@ console.log(mostFrequentWords(words));
 
 function topKFrequent(words,k){
     const freqArr = Object.entries(coundWords(words));
-    return freqArr.sort((a,b)=> b[1] - b[1])
-    .slice(0,k)
-    .map(item=>item[0])
+    return freqArr.sort((a,b)=> b[1] - b[1]) // sort the entire array
+    .slice(0,k) // take out only 0 to k
+    .map(item=>item[0]) // return only 
 }
 
 console.log(topKFrequent(words,2))
