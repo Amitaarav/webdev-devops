@@ -6,27 +6,19 @@
 
 const marks = { A: [80, 90], B: [70, 75, 85] };
 
-function averageMarks(nums){
-    const sum = nums.reduce(function(acc, item) {
-        return acc + item;
-    }, 0)
+const result = Object.entries(marks).reduce((best, [key, arr]) => {
+        const sum = arr.reduce((sum, num) => {
+            return (sum + num)}, 0
+        );
 
-    return sum / nums.length;
-}
+        const avg = sum / arr.length;
 
-function studentWithHighestAvgMarks(marks){
-    let result = {name: "", avg: 0};
-    const marksArr = Object.entries(marks);
-    for(let student of marksArr){
-        const score = marksArr[student];
-        const avg = averageMarks(score);
-        if(avg > result.avg){
-            result = {name: student, avg: avg};
+        if(avg > best.avg){
+            return {key, avg};
         }
-    }
 
-    return result.name;
-}
+        return best;
+}, {key: null, avg: -Infinity});
 
-console.log(studentWithHighestAvgMarks(marks));
+console.log(result.key);
 
