@@ -9,7 +9,22 @@
 
 
 function callbackify(fn) {
+    // returns a Promise  functions
+    /**
+     * return function(...arg, callback)
+     */
+    return function(...args){
+        const callback = args.pop(); // last argument is callback
+        fn(...args)
+        .then(data => callback(null, data))
+        .catch(error => callback(error));
+    }
 
 }
 
 module.exports = callbackify;
+
+
+// Higher Order Functions
+// A function that: 1. takes a function OR 2. return a function
+
