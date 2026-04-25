@@ -15,9 +15,18 @@ function callbackify(fn) {
      */
     return function(...args){
         const callback = args.pop(); // last argument is callback
-        fn(...args)
-        .then(data => callback(null, data))
-        .catch(error => callback(error));
+
+        if(typeof callback !== "function"){
+            throw new Error("Last argument must be a callback");
+        }
+
+        try {
+            const result = fn(...args) // execute the function with the provided arguments
+                .then(data => callback(null, data)) // convert Promise result into callback style
+                .catch(error => callback(error));
+        } catch (error) {
+            callback(error);
+        }
     }
 
 }

@@ -10,6 +10,7 @@ function delay(ms, value, callback) {
         // INVOKE CALLBACK  
         callback(null, value);
    }, ms);
+   //timer ID is returned by setTimeout, but we don't need to return it here as per the problem statement
 }
   
 module.exports = delay;
