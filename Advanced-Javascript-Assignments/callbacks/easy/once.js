@@ -7,7 +7,7 @@
 // the callback with the same result (or error) from the first invocation.
 
 function once(fn) {
-
+    
 }
 
 module.exports = once;
