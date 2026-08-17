@@ -6,6 +6,12 @@ import { errorHandler } from "./middleware/errorHandler.js";
 const PORT = process.env.PORT || 3000
 const app = express();
 app.use(express.json());
+app.get("/health", (req, res) => {
+  res.send({
+    status: 200,
+    message: "Everything is fine and working"
+  })
+})
 
 app.use("/api/cuisines", cuisinesRouter);
 app.use("/api/restaurants", restaurantsRouter);
